@@ -1,2 +1,21 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Vite
+dist/
+
+# Env files
 backend/.env
 frontend/.env
+
+# Prisma
+backend/src/prisma/*.db
+
+# Docker
+*.pid
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
