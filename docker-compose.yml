@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: shifthub-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgres://shifthub:shifthub@db:5432/shifthub
+
+  frontend:
+    build: ./frontend
+    container_name: shifthub-frontend
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:15
+    container_name: shifthub-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: shifthub
+      POSTGRES_PASSWORD: shifthub
+      POSTGRES_DB: shifthub
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
